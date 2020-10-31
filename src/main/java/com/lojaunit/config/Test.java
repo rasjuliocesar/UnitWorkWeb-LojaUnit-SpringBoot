@@ -11,9 +11,13 @@ import org.springframework.context.annotation.Profile;
 import com.lojaunit.entities.Categoria;
 import com.lojaunit.entities.Cliente;
 import com.lojaunit.entities.FormaPagamento;
+import com.lojaunit.entities.Fornecedor;
+import com.lojaunit.entities.Marca;
 import com.lojaunit.repository.CategoriaRepository;
 import com.lojaunit.repository.ClienteRepository;
 import com.lojaunit.repository.FormaPagamentoRepository;
+import com.lojaunit.repository.FornecedorRepository;
+import com.lojaunit.repository.MarcaRepository;
 
 @Configuration
 @Profile("test")
@@ -27,6 +31,12 @@ public class Test implements CommandLineRunner{
 	
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
+	
+	@Autowired
+	private MarcaRepository marcaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -52,5 +62,21 @@ public class Test implements CommandLineRunner{
 		FormaPagamento fp4 = new FormaPagamento(null, "Crediário", "Pagamento realizado com crediário da loja.", true);
 		
 		formaPagamentoRepository.saveAll(Arrays.asList(fp1, fp2, fp3, fp4));
+		
+		Fornecedor f1 = new Fornecedor(null, "ABC de Letras LTDA", "Rua do Livro Vermelho n 5", "()91111-1111", "00111222000100", "abc.letras@email.com");
+		Fornecedor f2 = new Fornecedor(null, "Padaria Miramar", "Avenida da Praia n 10", "()92222-2222", "11222333000111", "miramar@email.com");
+		Fornecedor f3 = new Fornecedor(null, "Veraneio Vascaina LTDA", "Rodovia BR 002", "()93333-3333", "22333444000122", "veraneio@email.com");
+		Fornecedor f4 = new Fornecedor(null, "Leilão de Mesa S/A", "Estrada Carneiro Arão s/n", "()94444-4444", "33444555000133", "leilao@email.com");
+		Fornecedor f5 = new Fornecedor(null, "Universidade Porto False Dig.", "Rua das Mulheres n 14", "()95555-5555", "44555666000144", "uni.porto@email.com");
+		
+		fornecedorRepository.saveAll(Arrays.asList(f1, f2, f3, f4, f5));
+		
+		Marca m1 = new Marca(null, "Niko", "Material Esportivo");
+		Marca m2 = new Marca(null, "Adoidas", "Material de Limpeza e Acessórios");
+		Marca m3 = new Marca(null, "Pão de Ló", "Tecidos e Papéis para Embrulhos");
+		Marca m4 = new Marca(null, "Carmalaty", "Produto Líquido com teor de álcool");
+		Marca m5 = new Marca(null, "CNC", "Materiais Náuticos");
+		
+		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5));
 	}
 }
