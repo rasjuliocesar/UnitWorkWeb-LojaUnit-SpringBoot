@@ -15,6 +15,8 @@ import com.lojaunit.entities.FormaPagamento;
 import com.lojaunit.entities.Fornecedor;
 import com.lojaunit.entities.ItensVenda;
 import com.lojaunit.entities.Marca;
+import com.lojaunit.entities.Produto;
+import com.lojaunit.entities.Venda;
 import com.lojaunit.repository.CategoriaRepository;
 import com.lojaunit.repository.ClienteRepository;
 import com.lojaunit.repository.FaqRepository;
@@ -22,6 +24,8 @@ import com.lojaunit.repository.FormaPagamentoRepository;
 import com.lojaunit.repository.FornecedorRepository;
 import com.lojaunit.repository.ItensVendaRepository;
 import com.lojaunit.repository.MarcaRepository;
+import com.lojaunit.repository.ProdutoRepository;
+import com.lojaunit.repository.VendaRepository;
 
 @Configuration
 @Profile("test")
@@ -47,6 +51,12 @@ public class Test implements CommandLineRunner{
 	
 	@Autowired
 	private ItensVendaRepository itensVendaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private VendaRepository vendaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -100,5 +110,19 @@ public class Test implements CommandLineRunner{
 		ItensVenda i3 = new ItensVenda(null, 5, 104.49);
 		
 		itensVendaRepository.saveAll(Arrays.asList(i1, i2, i3));
+		
+		Produto p1 = new Produto(null, "Camisa Polo", "Camisa Polo Azul", 99.99, "UND");
+		Produto p2 = new Produto(null, "Mouse sem fio", "Mouse sem fio para notebook", 59.99, "PC");
+		Produto p3 = new Produto(null, "Meias", "Par de meias brancas", 39.99, "PAR");
+		Produto p4 = new Produto(null, "João Andante", "Litro bebida com malte", 89.99, "LT");
+		Produto p5 = new Produto(null, "TV 50'", "Televisão", 1599.99, "UND");
+		
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		Venda v1 = new Venda(null, Instant.parse("2020-03-15T16:53:07Z"), 59.99);
+		Venda v2 = new Venda(null, Instant.parse("2020-05-26T09:36:24Z"), 128.56);
+		Venda v3 = new Venda(null, Instant.parse("2020-06-10T15:22:17Z"), 437.27);
+		
+		vendaRepository.saveAll(Arrays.asList(v1, v2, v3));
 	}
 }
