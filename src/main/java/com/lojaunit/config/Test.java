@@ -10,13 +10,17 @@ import org.springframework.context.annotation.Profile;
 
 import com.lojaunit.entities.Categoria;
 import com.lojaunit.entities.Cliente;
+import com.lojaunit.entities.Faq;
 import com.lojaunit.entities.FormaPagamento;
 import com.lojaunit.entities.Fornecedor;
+import com.lojaunit.entities.ItensVenda;
 import com.lojaunit.entities.Marca;
 import com.lojaunit.repository.CategoriaRepository;
 import com.lojaunit.repository.ClienteRepository;
+import com.lojaunit.repository.FaqRepository;
 import com.lojaunit.repository.FormaPagamentoRepository;
 import com.lojaunit.repository.FornecedorRepository;
+import com.lojaunit.repository.ItensVendaRepository;
 import com.lojaunit.repository.MarcaRepository;
 
 @Configuration
@@ -37,6 +41,12 @@ public class Test implements CommandLineRunner{
 	
 	@Autowired
 	private MarcaRepository marcaRepository;
+	
+	@Autowired
+	private FaqRepository faqRepository;
+	
+	@Autowired
+	private ItensVendaRepository itensVendaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -78,5 +88,17 @@ public class Test implements CommandLineRunner{
 		Marca m5 = new Marca(null, "CNC", "Materiais Náuticos");
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5));
+		
+		Faq fq1 = new Faq(null, Instant.parse("2018-06-16T16:53:07Z"), "Ótimo Produto!");
+		Faq fq2= new Faq(null, Instant.parse("2010-03-15T11:29:38Z"), "Problemas com Garantia");
+		Faq fq3 = new Faq(null, Instant.parse("2020-10-01T21:35:22Z"), "Produto razoável");
+		
+		faqRepository.saveAll(Arrays.asList(fq1, fq2, fq3));
+		
+		ItensVenda i1 = new ItensVenda(null, 3, 22.90);
+		ItensVenda i2 = new ItensVenda(null, 1, 39.99);
+		ItensVenda i3 = new ItensVenda(null, 5, 104.49);
+		
+		itensVendaRepository.saveAll(Arrays.asList(i1, i2, i3));
 	}
 }
