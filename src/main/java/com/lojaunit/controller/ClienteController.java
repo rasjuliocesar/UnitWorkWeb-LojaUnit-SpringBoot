@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lojaunit.entities.Cliente;
-import com.lojaunit.repository.ClienteRepository;
+import com.lojaunit.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteController {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteService clienteService;
 	
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll(){
-		List<Cliente> clientes = clienteRepository.findAll();
+		List<Cliente> clientes = clienteService.findAll();
 		return ResponseEntity.ok().body(clientes);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Optional<Cliente>> findById(@PathVariable("id") Long id){
-		Optional<Cliente> cliente = clienteRepository.findById(id);
+	public ResponseEntity<Cliente> findById(@PathVariable("id") Long id){
+		Cliente cliente = clienteService.findById(id);
 		return ResponseEntity.ok().body(cliente);
 	}
 }
