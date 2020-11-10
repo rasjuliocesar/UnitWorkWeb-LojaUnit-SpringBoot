@@ -99,30 +99,30 @@ public class Test implements CommandLineRunner{
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5));
 		
-		Faq fq1 = new Faq(null, Instant.parse("2018-06-16T16:53:07Z"), "Ótimo Produto!");
-		Faq fq2= new Faq(null, Instant.parse("2010-03-15T11:29:38Z"), "Problemas com Garantia");
-		Faq fq3 = new Faq(null, Instant.parse("2020-10-01T21:35:22Z"), "Produto razoável");
+		Venda v1 = new Venda(null, Instant.parse("2020-03-15T16:53:07Z"), 59.99, c1, fp1);
+		Venda v2 = new Venda(null, Instant.parse("2020-05-26T09:36:24Z"), 128.56, c2, fp2);
+		Venda v3 = new Venda(null, Instant.parse("2020-06-10T15:22:17Z"), 437.27, c3, fp4);
 		
-		faqRepository.saveAll(Arrays.asList(fq1, fq2, fq3));
+		vendaRepository.saveAll(Arrays.asList(v1, v2, v3));
 		
-		ItensVenda i1 = new ItensVenda(null, 3, 22.90);
-		ItensVenda i2 = new ItensVenda(null, 1, 39.99);
-		ItensVenda i3 = new ItensVenda(null, 5, 104.49);
-		
-		itensVendaRepository.saveAll(Arrays.asList(i1, i2, i3));
-		
-		Produto p1 = new Produto(null, "Camisa Polo", "Camisa Polo Azul", 99.99, "UND");
-		Produto p2 = new Produto(null, "Mouse sem fio", "Mouse sem fio para notebook", 59.99, "PC");
-		Produto p3 = new Produto(null, "Meias", "Par de meias brancas", 39.99, "PAR");
-		Produto p4 = new Produto(null, "João Andante", "Litro bebida com malte", 89.99, "LT");
-		Produto p5 = new Produto(null, "TV 50'", "Televisão", 1599.99, "UND");
+		Produto p1 = new Produto(null, "Camisa Polo", "Camisa Polo Azul", 99.99, "UND", m2, f1, ct1);
+		Produto p2 = new Produto(null, "Mouse sem fio", "Mouse sem fio para notebook", 59.99, "PC", m1, f2, ct2);
+		Produto p3 = new Produto(null, "Meias", "Par de meias brancas", 39.99, "PAR", m3, f5, ct3);
+		Produto p4 = new Produto(null, "João Andante", "Litro bebida com malte", 89.99, "LT", m5, f4, ct4);
+		Produto p5 = new Produto(null, "TV 50'", "Televisão", 1599.99, "UND", m4, f3, ct5);
 		
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
-		Venda v1 = new Venda(null, Instant.parse("2020-03-15T16:53:07Z"), 59.99);
-		Venda v2 = new Venda(null, Instant.parse("2020-05-26T09:36:24Z"), 128.56);
-		Venda v3 = new Venda(null, Instant.parse("2020-06-10T15:22:17Z"), 437.27);
+		ItensVenda i1 = new ItensVenda(v1, p3, 3, p3.getPrecoUnitario());
+		ItensVenda i2 = new ItensVenda(v3, p1, 1, p1.getPrecoUnitario());
+		ItensVenda i3 = new ItensVenda(v2, p4, 5, p4.getPrecoUnitario());
 		
-		vendaRepository.saveAll(Arrays.asList(v1, v2, v3));
+		itensVendaRepository.saveAll(Arrays.asList(i1, i2, i3));
+		
+		Faq fq1 = new Faq(null, Instant.parse("2018-06-16T16:53:07Z"), "Ótimo Produto!", p1);
+		Faq fq2= new Faq(null, Instant.parse("2010-03-15T11:29:38Z"), "Problemas com Garantia", p5);
+		Faq fq3 = new Faq(null, Instant.parse("2020-10-01T21:35:22Z"), "Produto razoável", p2);
+		
+		faqRepository.saveAll(Arrays.asList(fq1, fq2, fq3));
 	}
 }

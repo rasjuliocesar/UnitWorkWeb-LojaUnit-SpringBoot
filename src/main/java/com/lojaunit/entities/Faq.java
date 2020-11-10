@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
 
@@ -27,14 +29,19 @@ public class Faq implements Serializable{
 	@NotNull
 	private String texto;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_produto")
+	private Produto produto;
+	
 	public Faq() {
 	}
 	
-	public Faq(Long id, Instant dataHora, String texto) {
+	public Faq(Long id, Instant dataHora, String texto, Produto produto) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
 		this.texto = texto;
+		this.produto = produto;
 	}
 
 	public Long getId() {
@@ -59,6 +66,14 @@ public class Faq implements Serializable{
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+	
+	public Produto getProdutos() {
+		return produto;
+	}
+	
+	public void setProdutos(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override

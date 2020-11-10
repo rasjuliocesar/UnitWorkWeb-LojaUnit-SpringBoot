@@ -1,13 +1,21 @@
 package com.lojaunit.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -28,16 +36,39 @@ private static final long serialVersionUID = 1L;
 	
 	private String unidade;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_marca")
+	private Marca marca;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_fornecedor")
+	private Fornecedor fornecedor;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_categoria")
+	private Categoria categoria;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "produto")
+	private List<Faq> faqs = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "produto")
+	private Set<ItensVenda> itens = new HashSet<>();
+	
 	public Produto() {
 	}
 
-	public Produto(Long id, String nome, String descricao, Double precoUnitario, String unidade) {
+	public Produto(Long id, String nome, String descricao, Double precoUnitario, String unidade, Marca marca, Fornecedor fornecedor, Categoria categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.precoUnitario = precoUnitario;
 		this.unidade = unidade;
+		this.marca = marca;
+		this.fornecedor = fornecedor;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -79,7 +110,44 @@ private static final long serialVersionUID = 1L;
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
 	}
+	
+	public Marca getMarca() {
+		return marca;
+	}
+	
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+	
+	public Fornecedor getFornecedores() {
+		return fornecedor;
+	}
+	
+	public void setFornecedores(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
+	public Categoria getCategorias() {
+		return categoria;
+	}
 
+	public void setCategorias(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+	public List<Faq> getFaqs(){
+		return faqs;
+	}
+	
+	@JsonIgnore
+	public Set<Venda> getVendas(){
+		Set<Venda> set = new HashSet<>();
+		for(ItensVenda item : itens) {
+			set.add(item.getVendas());
+		}
+		return set;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,13 +1,17 @@
 package com.lojaunit.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -24,6 +28,10 @@ public class FormaPagamento implements Serializable{
 	private String descricao;
 	@NotNull
 	private Boolean ativo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "formaPagamento")
+	private List<Venda> vendas = new ArrayList<>();
 	
 	public FormaPagamento() {
 	}
@@ -66,6 +74,10 @@ public class FormaPagamento implements Serializable{
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public List<Venda> getVendas(){
+		return vendas;
 	}
 
 	@Override
