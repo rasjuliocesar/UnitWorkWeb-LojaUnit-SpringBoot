@@ -53,7 +53,7 @@ private static final long serialVersionUID = 1L;
 	private List<Faq> faqs = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "id.produto")
 	private Set<ItensVenda> itens = new HashSet<>();
 	
 	public Produto() {

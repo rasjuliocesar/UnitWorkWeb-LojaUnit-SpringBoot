@@ -42,7 +42,7 @@ public class Venda implements Serializable{
 	@JoinColumn(name = "id_forma_pagamento")
 	private FormaPagamento formaPagamento;
 	
-	@OneToMany(mappedBy = "id_venda")
+	@OneToMany(mappedBy = "id.venda")
 	private Set<ItensVenda> itens = new HashSet<>();
 	
 	public Venda() {
@@ -104,7 +104,7 @@ public class Venda implements Serializable{
 	public Double getTotal() {
 		double soma = 0.0;
 		for(ItensVenda item : itens) {
-			soma += item.getTotal();
+			soma += item.getSubTotal();
 		}
 		return soma;
 	}

@@ -71,7 +71,7 @@ public class ItensVenda implements Serializable{
 		id.setProduto(produto);
 	}
 	
-	public Double getTotal() {
+	public Double getSubTotal() {
 		return quantidade * valorUnitario;
 	}
 
