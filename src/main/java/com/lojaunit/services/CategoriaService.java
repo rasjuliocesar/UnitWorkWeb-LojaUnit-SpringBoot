@@ -23,4 +23,23 @@ public class CategoriaService {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
 		return categoria.get();
 	}
+	
+	public Categoria insert(Categoria categoria) {
+		return categoriaRepository.save(categoria);
+	}
+	
+	public void delete(Long id) {
+		categoriaRepository.deleteById(id);
+	}
+	
+	public Categoria update(Long id, Categoria categoria) {
+		Categoria cat = categoriaRepository.getOne(id);
+		updateData(cat, categoria);
+		return categoriaRepository.save(cat);
+	}
+
+	private void updateData(Categoria cat, Categoria categoria) {
+		cat.setNome(categoria.getNome());
+		cat.setAtivo(categoria.getAtivo());
+	}
 }
